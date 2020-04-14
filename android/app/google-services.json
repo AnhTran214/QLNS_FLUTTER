@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "571683500247",
+    "firebase_url": "https://quanlynhansu-61b96.firebaseio.com",
+    "project_id": "quanlynhansu-61b96",
+    "storage_bucket": "quanlynhansu-61b96.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:571683500247:android:8dc4e8065e63c5574c0092",
+        "android_client_info": {
+          "package_name": "com.gsot.qlns"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "571683500247-oq6qq2uirb1gvvqf0glnm3qkmbdhscsr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtopmjLexWKwIpMo6m5CmZDQuB41siFxI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "571683500247-oq6qq2uirb1gvvqf0glnm3qkmbdhscsr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
