@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:qlns/core/models/authentication.dart';
 import 'package:qlns/ui/constants/colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:qlns/ui/widgets/input.dart';
 
 class Login extends StatefulWidget {
   Login({this.auth, this.loginCallback});
@@ -15,13 +16,14 @@ class Login extends StatefulWidget {
 }
 
 class _Login extends State<Login> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  String _email;
-  String _password;
   String _errorMessage = " ";
   bool _isLoginForm;
   bool _isLoading;
-
+  FocusNode _emailFocus;
+  FocusNode _passFocus;
   //Check if form is valid before perform login or sign up
   bool validateAndSave() {
     final form = _formKey.currentState;
@@ -34,15 +36,18 @@ class _Login extends State<Login> {
 
   // Perform login or sign up
   void validateAndSubmit() async {
-    setState(() {
-      _errorMessage = "";
-      _isLoading = true;
-    });
+    this._emailFocus.unfocus();
+    this._passFocus.unfocus();
     if (validateAndSave()) {
+      setState(() {
+        _errorMessage = "";
+        _isLoading = true;
+      });
       String userId = "";
       try {
         if (_isLoginForm) {
-          userId = await widget.auth.signIn(_email, _password);
+          userId = await widget.auth
+              .signIn(emailController.text, passwordController.text);
           Fluttertoast.showToast(
               msg: "Đăng nhập thành công",
               toastLength: Toast.LENGTH_SHORT,
@@ -52,7 +57,6 @@ class _Login extends State<Login> {
               textColor: Colors.black,
               fontSize: 16.0);
         }
-        setState(() {});
         setState(() {
           _isLoading = false;
         });
@@ -76,6 +80,8 @@ class _Login extends State<Login> {
     _errorMessage = "";
     _isLoading = false;
     _isLoginForm = true;
+    _emailFocus=FocusNode();
+    _passFocus=FocusNode();
     super.initState();
   }
 
@@ -168,6 +174,10 @@ class _Login extends State<Login> {
                                         Container(
                                           padding: EdgeInsets.all(10.0),
                                           child: TextFormField(
+                                            focusNode: this._emailFocus,
+                                            style: TextStyle(
+                                                color: color_white_text1),
+                                            controller: emailController,
                                             maxLines: 1,
                                             keyboardType:
                                                 TextInputType.emailAddress,
@@ -179,29 +189,40 @@ class _Login extends State<Login> {
                                               return null;
                                             },
                                             onSaved: (input) =>
-                                                _email = input.trim(),
+                                                //_email = input.trim(),
+                                                emailController.text = input,
                                             decoration: InputDecoration(
-                                                icon: Icon(
-                                                  Icons.person,
-                                                  color: color_white_icons,
-                                                ),
-                                                labelText: 'Email',
-                                                labelStyle: TextStyle(
-                                                    color: color_white_text1),
-                                                hintText:
-                                                    'Nhập email của bạn...',
-                                                border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.0),
-                                                    borderSide: BorderSide(
-                                                        color:
-                                                            color_white_icons))),
+                                              errorBorder:CustomInput.customBorderInput(
+                                                  Colors.red) ,
+                                              focusedErrorBorder:
+                                                  CustomInput.customBorderInput(
+                                                      Colors.white),
+                                              focusedBorder:
+                                                  CustomInput.customBorderInput(
+                                                      Colors.white),
+                                              enabledBorder:
+                                                  CustomInput.customBorderInput(
+                                                      Colors.white),
+                                              hintStyle: TextStyle(
+                                                  color: Colors.white70),
+                                              icon: Icon(
+                                                Icons.person,
+                                                color: color_white_icons,
+                                              ),
+                                              labelText: 'Email',
+                                              labelStyle: TextStyle(
+                                                  color: color_white_text1),
+                                              hintText: 'Nhập email của bạn...',
+                                            ),
                                           ),
                                         ),
                                         Container(
                                           padding: EdgeInsets.all(10.0),
                                           child: TextFormField(
+                                            focusNode: this._passFocus,
+                                            style: TextStyle(
+                                                color: color_white_text1),
+                                            controller: passwordController,
                                             maxLines: 1,
                                             autofocus: false,
                                             validator: (input) {
@@ -211,24 +232,33 @@ class _Login extends State<Login> {
                                               return null;
                                             },
                                             onSaved: (input) =>
-                                                _password = input.trim(),
+                                                passwordController.text = input,
                                             decoration: InputDecoration(
-                                                icon: Icon(
-                                                  Icons.lock,
-                                                  color: color_white_icons,
-                                                ),
-                                                labelText: 'Mật khẩu',
-                                                labelStyle: TextStyle(
-                                                    color: color_white_text1),
-                                                hintText:
-                                                    'Nhập mật khẩu của bạn...',
-                                                border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.0),
-                                                    borderSide: BorderSide(
-                                                        color:
-                                                            color_white_icons))),
+                                              disabledBorder: CustomInput.customBorderInput(
+                                                  Colors.white),
+                                              focusedErrorBorder:
+                                              CustomInput.customBorderInput(
+                                                  Colors.white),
+                                              errorBorder:CustomInput.customBorderInput(
+                                                  Colors.red) ,
+                                              focusedBorder:
+                                                  CustomInput.customBorderInput(
+                                                      Colors.white),
+                                              enabledBorder:
+                                                  CustomInput.customBorderInput(
+                                                      Colors.white),
+                                              hintStyle: TextStyle(
+                                                  color: Colors.white70),
+                                              icon: Icon(
+                                                Icons.lock,
+                                                color: color_white_icons,
+                                              ),
+                                              labelText: 'Mật khẩu',
+                                              labelStyle: TextStyle(
+                                                  color: color_white_text1),
+                                              hintText:
+                                                  'Nhập mật khẩu của bạn...',
+                                            ),
                                             obscureText: true,
                                           ),
                                         ),
