@@ -136,6 +136,7 @@ class _Login extends State<Login> {
                     image: AssetImage("images/background_blue.png"),
                     fit: BoxFit.fill)),
             child: Scaffold(
+                resizeToAvoidBottomInset: false,
                 backgroundColor: Colors.transparent,
                 body: Stack(
                   children: <Widget>[

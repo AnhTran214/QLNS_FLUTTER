@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:qlns/core/navigation/navigate.dart';
 import 'package:qlns/ui/constants/colors.dart';
 import 'dart:ui';
 
@@ -52,7 +51,7 @@ class _MonthlyWorksheet extends State<MonthlyWorksheet> {
             leading: IconButton(
               icon: Icon(Icons.arrow_back, color: Colors.black),
               onPressed: () {
-                Navigation().goToHome(context);
+                Navigator.of(context).pushNamed("home");
               },
             ),
           ),
@@ -133,7 +132,7 @@ class _MonthlyWorksheet extends State<MonthlyWorksheet> {
                           borderRadius: BorderRadius.circular(5.0),
                           side: BorderSide(color: color_header)),
                       onPressed: () {
-                        Navigation().goToTimekeeping(context);
+                        Navigator.of(context).pushNamed("timekeeping");
                       },
                       child: Text(
                         "Chấm công",

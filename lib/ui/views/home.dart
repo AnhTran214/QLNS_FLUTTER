@@ -5,12 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qlns/core/models/authentication.dart';
 import 'package:qlns/ui/constants/colors.dart';
-import 'package:qlns/core/navigation/navigate.dart';
 import 'package:flutter/services.dart';
 
 List<String> _timekeepingList = [
   'Chấm công',
-  'Bảng công\ntháng',
+  'Dữ liệu\nchấm công\ncá nhân',
   'Dữ liệu\nthất bại',
   'Chốt công\nhằng ngày',
   'Bảng chấm công\ncá nhân',
@@ -51,6 +50,7 @@ class _HomeViewState extends State<Home> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getUser();
     print("Email:");
     print(_email);
   }
@@ -254,34 +254,34 @@ class _HomeViewState extends State<Home> {
     return GestureDetector(
         onTap: () {
           if (name == "Nghỉ phép") {
-            Navigation().goSabbaticalLeave(context);
+            Navigator.of(context).pushNamed("sabbaticalLeave");
           }
           if (name == "Chấm công") {
-            Navigation().goToTimekeeping(context);
+            Navigator.of(context).pushNamed("timekeeping");
           }
-          if (name == "Bảng công\ntháng") {
-            Navigation().goToMonthlyWorksheet(context);
+          if (name == "Dữ liệu\nchấm công\ncá nhân") {
+            Navigator.of(context).pushNamed("monthlyWorksheet");
           }
           if (name == "Dữ liệu\nthất bại") {
-            Navigation().goToDataFailed(context);
+            Navigator.of(context).pushNamed("dataFailed");
           }
           if (name == "Chốt công\nhằng ngày") {
-            Navigation().goToCompleteTheTimekeeping(context);
+            Navigator.of(context).pushNamed("completeTheTimekeeping");
           }
           if (name == "Bảng chấm công\ncá nhân") {
-            Navigation().goToPersonalTimeSheets(context);
+            Navigator.of(context).pushNamed("personalTimeSheets");
           }
           if (name == "Đi trễ\nvề sớm") {
-            Navigation().goToArriveLateAndComeHomeEarly(context);
+            Navigator.of(context).pushNamed("arriveLateAndComeHomeEarly");
           }
           if (name == "Bù công") {
-            Navigation().goToTimekeepingCompensation(context);
+            Navigator.of(context).pushNamed("timekeepingCompensation");
           }
           if (name == "Đi trễ/về sớm\nthai sản") {
-            Navigation().goToMaternity(context);
+            Navigator.of(context).pushNamed("maternity");
           }
           if (name == "Đăng ký\ncông tác ngoài") {
-            Navigation().goToExternalWork(context);
+            Navigator.of(context).pushNamed("externalWork");
           }
         },
         child: Container(

@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:qlns/core/navigation/navigate.dart';
 import 'package:qlns/ui/constants/colors.dart';
 
 
@@ -130,7 +129,7 @@ class _ExternalWorkRegistration extends State<ExternalWorkRegistration> {
               leading: IconButton(
                 icon: Icon(Icons.arrow_back, color: Colors.black),
                 onPressed: () {
-                  Navigation().goToExternalWork(context);
+                  Navigator.of(context).pushNamed("externalWork");
                 },
               ),
               actions: <Widget>[

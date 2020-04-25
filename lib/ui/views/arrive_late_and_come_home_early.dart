@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:qlns/core/navigation/navigate.dart';
 import 'package:qlns/ui/constants/colors.dart';
 
 List<String> _listOfMeetings = [
@@ -155,7 +154,7 @@ class _ArriveLateAndComeHomeEarly extends State<ArriveLateAndComeHomeEarly> {
               leading: IconButton(
                 icon: Icon(Icons.arrow_back, color: Colors.black),
                 onPressed: () {
-                  Navigation().goToHome(context);
+                  Navigator.of(context).pushNamed("home");
                 },
               ),
               actions: <Widget>[

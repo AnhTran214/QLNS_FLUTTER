@@ -5,7 +5,6 @@ import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:qlns/core/navigation/navigate.dart';
 import 'package:qlns/ui/constants/colors.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -124,7 +123,7 @@ class _Timekeeping extends State<Timekeeping> {
               leading: IconButton(
                 icon: Icon(Icons.arrow_back, color: Colors.black),
                 onPressed: () {
-                  Navigation().goToHome(context);
+                  Navigator.of(context).pushNamed("home");
                 },
               ),
             ),
