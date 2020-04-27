@@ -55,35 +55,14 @@ class _HomeViewState extends State<Home> {
     print(_email);
   }
 
-  Future<bool> _onWillPop() async {
-    return (await showDialog(
-          context: context,
-          builder: (context) => new AlertDialog(
-            title: new Text('Thông báo'),
-            content: new Text('Bạn có chắc muốn thoát ứng dụng?'),
-            actions: <Widget>[
-              new FlatButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: new Text('Không'),
-              ),
-              new FlatButton(
-                onPressed: () => Navigator.of(context).pop(true),
-                child: new Text('Có'),
-              ),
-            ],
-          ),
-        )) ??
-        false;
-  }
+
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, //or set color with: Color(0xFF0000FF)
     ));
-    return WillPopScope(
-      onWillPop: _onWillPop,
-      child: Stack(
+    return  Stack(
         children: <Widget>[
           Image.asset('images/butterfly.png', fit: BoxFit.cover),
           Scaffold(
@@ -234,8 +213,7 @@ class _HomeViewState extends State<Home> {
             ),
           )
         ],
-      ),
-    );
+      );
   }
 
   Widget _itemTabBarView(List<String> items) {

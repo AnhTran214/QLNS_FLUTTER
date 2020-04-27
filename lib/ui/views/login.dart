@@ -97,33 +97,10 @@ class _Login extends State<Login> {
     });
   }
 
-  Future<bool> _onWillPop() async {
-    return (await showDialog(
-          context: context,
-          builder: (context) => new AlertDialog(
-            title: new Text('Thông báo'),
-            content: new Text('Bạn có chắc muốn thoát ứng dụng?'),
-            actions: <Widget>[
-              new FlatButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: new Text('Không'),
-              ),
-              new FlatButton(
-                onPressed: () => Navigator.of(context).pop(true),
-                child: new Text('Có'),
-              ),
-            ],
-          ),
-        )) ??
-        false;
-  }
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return WillPopScope(
-      onWillPop: _onWillPop,
-      child: MaterialApp(
+    return  MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
               primaryColor: Colors.white,
@@ -310,8 +287,7 @@ class _Login extends State<Login> {
                     _showCircularProgress(),
                   ],
                 )),
-          )),
-    );
+          ));
   }
 
   Widget showErrorMessage() {

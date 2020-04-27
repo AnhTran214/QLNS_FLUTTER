@@ -1,10 +1,14 @@
 import 'dart:async';
+//import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+
 import 'package:qlns/ui/constants/colors.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -20,7 +24,7 @@ class Timekeeping extends StatefulWidget {
 }
 
 class _Timekeeping extends State<Timekeeping> {
-  CameraController controller;
+  CameraController _cameraController;
   CameraLensDirection _direction = CameraLensDirection.front;
   Completer<GoogleMapController> _controller = Completer();
   Location location;
@@ -46,7 +50,7 @@ class _Timekeeping extends State<Timekeeping> {
 
   @override
   void dispose() {
-    controller?.dispose();
+    _cameraController?.dispose();
     super.dispose();
   }
 
@@ -60,13 +64,13 @@ class _Timekeeping extends State<Timekeeping> {
 
   _initializeCamera() async {
     CameraDescription description = await getCamera(_direction);
-    controller = CameraController(
+    _cameraController = CameraController(
       description,
       defaultTargetPlatform == TargetPlatform.iOS
           ? ResolutionPreset.low
           : ResolutionPreset.medium,
     );
-    await controller.initialize();
+    await _cameraController.initialize();
     setState(() {});
   }
 
@@ -83,33 +87,11 @@ class _Timekeeping extends State<Timekeeping> {
     _locationData = await location.getLocation();
   }
 
-  Future<bool> _onWillPop() async {
-    return (await showDialog(
-          context: context,
-          builder: (context) => new AlertDialog(
-            title: new Text('Thông báo'),
-            content: new Text('Bạn có chắc muốn thoát ứng dụng?'),
-            actions: <Widget>[
-              new FlatButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: new Text('Không'),
-              ),
-              new FlatButton(
-                onPressed: () => Navigator.of(context).pop(true),
-                child: new Text('Có'),
-              ),
-            ],
-          ),
-        )) ??
-        false;
-  }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return WillPopScope(
-      onWillPop: _onWillPop,
-      child: MaterialApp(
+    return  MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             primaryColor: color_header,
@@ -123,7 +105,7 @@ class _Timekeeping extends State<Timekeeping> {
               leading: IconButton(
                 icon: Icon(Icons.arrow_back, color: Colors.black),
                 onPressed: () {
-                  Navigator.of(context).pushNamed("home");
+                  Navigator.pop(context);
                 },
               ),
             ),
@@ -168,31 +150,14 @@ class _Timekeeping extends State<Timekeeping> {
                     ],
                   ),
                 ),
-//              FutureBuilder(
-//                future: _initializeCamera(),
-//                builder: (context, snapshot) {
-//                  if (snapshot.connectionState == ConnectionState.waiting) {
-//                    return Container();
-//                  } else
-//                    return Container(
-//                      height: MediaQuery.of(context).size.width,
-//                      child: Padding(
-//                        padding: EdgeInsets.fromLTRB(20, 0, 20, 0 ),
-//                        child: AspectRatio(
-//                            aspectRatio: controller.value.aspectRatio,
-//                            child: CameraPreview(controller)),
-//                      )
-//                    );
-//                },
-//              ),
                 Container(
                     height: MediaQuery.of(context).size.width,
                     child: Padding(
                         padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                        child: controller != null
+                        child: _cameraController != null
                             ? AspectRatio(
-                                aspectRatio: controller.value.aspectRatio,
-                                child: CameraPreview(controller))
+                                aspectRatio: _cameraController.value.aspectRatio,
+                                child: CameraPreview(_cameraController))
                             : Center(child: Text('Đang tải camera')))),
                 Container(
                   margin: EdgeInsets.all(5.0),
@@ -222,7 +187,21 @@ class _Timekeeping extends State<Timekeeping> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5.0),
                                   side: BorderSide(color: Colors.lightBlue)),
-                              onPressed: () {},
+                              onPressed: () async {
+                                try{
+
+                                  //Uint8List imageByte;
+                                  await _cameraController.initialize();
+                                  final path = join(
+                                    (await getTemporaryDirectory()).path,
+                                    '${DateTime.now()}.png',
+                                  );
+                                  await _cameraController.takePicture(path);
+
+                                } catch(e){
+                                  print(e);
+                                }
+                              },
                               child: Text("Chấm công"))),
                       Container(
                           child: FlatButton(
@@ -298,11 +277,7 @@ class _Timekeeping extends State<Timekeeping> {
                     )),
               ],
             )),
-      ),
-    );
+      )
+    ;
   }
-//    Future<void> _goToTheLake() async {
-//    final GoogleMapController controller1 = await _controller.future;
-//    controller1.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-//  }
 }

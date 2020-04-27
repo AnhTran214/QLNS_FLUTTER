@@ -11,33 +11,12 @@ class CompleteTheTimekeeping extends StatefulWidget {
 class _CompleteTheTimekeeping extends State<CompleteTheTimekeeping> {
   bool information = true;
 
-  Future<bool> _onWillPop() async {
-    return (await showDialog(
-          context: context,
-          builder: (context) => new AlertDialog(
-            title: new Text('Thông báo'),
-            content: new Text('Bạn có chắc muốn thoát ứng dụng?'),
-            actions: <Widget>[
-              new FlatButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: new Text('Không'),
-              ),
-              new FlatButton(
-                onPressed: () => Navigator.of(context).pop(true),
-                child: new Text('Có'),
-              ),
-            ],
-          ),
-        )) ??
-        false;
-  }
+
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return WillPopScope(
-      onWillPop: _onWillPop,
-      child: MaterialApp(
+    return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             primaryColor: color_header,
@@ -51,7 +30,7 @@ class _CompleteTheTimekeeping extends State<CompleteTheTimekeeping> {
             leading: IconButton(
               icon: Icon(Icons.arrow_back, color: Colors.black),
               onPressed: () {
-                Navigator.of(context).pushNamed("home");
+                Navigator.pop(context);
               },
             ),
           ),
@@ -357,8 +336,7 @@ class _CompleteTheTimekeeping extends State<CompleteTheTimekeeping> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 
   Icon icon() {
