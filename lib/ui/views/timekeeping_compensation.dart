@@ -101,42 +101,30 @@ class _TimekeepingCompensation extends State<TimekeepingCompensation> {
           title: "Xin phep",
           home: Scaffold(
             appBar: AppBar(
-              backgroundColor: color_white_text1,
+              backgroundColor: color_header,
+              title: Center(
+                child:Text(
+                  "Nhập mới đăng ký bù công",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: color_white_text1),
+                ),
+              ),
               leading: IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.black),
+                icon: Icon(Icons.arrow_back, color: color_white_text1),
                 onPressed: () {
                   Navigator.pop(context);
                 },
               ),
-              actions: <Widget>[
+              /*actions: <Widget>[
                 IconButton(
                   icon: Icon(Icons.menu, color: Colors.black),
                   onPressed: null,
                 )
-              ],
+              ],*/
             ),
             body: ListView(
               children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(color: color_header),
-                  padding: EdgeInsets.all(10.0),
-                  child: Row(
-                    children: <Widget>[
-                      Text(
-                        "Nhập mới đăng ký bù công",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: color_white_text1),
-                      ),
-                      IconButton(
-                          icon: Icon(
-                            Icons.refresh,
-                            color: color_white_icons,
-                          ),
-                          onPressed: null)
-                    ],
-                  ),
-                ),
                 Container(
                   decoration: BoxDecoration(color: Colors.white),
                   padding: EdgeInsets.all(10.0),

@@ -101,9 +101,17 @@ class _Timekeeping extends State<Timekeeping> {
         home: Scaffold(
             backgroundColor: Colors.grey[100],
             appBar: AppBar(
-              backgroundColor: color_white_text1,
+              title: Center(
+                child: Text(
+                  "Chấm công online",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: color_white_text1),
+                ),
+              ),
+              backgroundColor: color_header,
               leading: IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.black),
+                icon: Icon(Icons.arrow_back, color: color_white_text1),
                 onPressed: () {
                   Navigator.pop(context);
                 },
@@ -111,26 +119,6 @@ class _Timekeeping extends State<Timekeeping> {
             ),
             body: ListView(
               children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(color: color_header),
-                  padding: EdgeInsets.all(10.0),
-                  child: Row(
-                    children: <Widget>[
-                      Text(
-                        "Chấm công online",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: color_white_text1),
-                      ),
-                      IconButton(
-                          icon: Icon(
-                            Icons.refresh,
-                            color: color_white_icons,
-                          ),
-                          onPressed: null)
-                    ],
-                  ),
-                ),
                 Container(
                   margin: EdgeInsets.all(5.0),
                   decoration: BoxDecoration(
@@ -152,7 +140,7 @@ class _Timekeeping extends State<Timekeeping> {
                 ),
                 Container(
                     height: MediaQuery.of(context).size.width,
-                    child: Padding(
+                    child: Container(
                         padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                         child: _cameraController != null
                             ? AspectRatio(
@@ -197,7 +185,7 @@ class _Timekeeping extends State<Timekeeping> {
                                     '${DateTime.now()}.png',
                                   );
                                   await _cameraController.takePicture(path);
-
+                                  print(path);
                                 } catch(e){
                                   print(e);
                                 }

@@ -26,9 +26,18 @@ class _DataFailed extends State<DataFailed> {
         home: Scaffold(
           backgroundColor: Colors.grey[100],
           appBar: AppBar(
-            backgroundColor: color_white_text1,
+            backgroundColor: color_header,
+            title: Center(
+              child: Text(
+                "Dữ liệu chấm công thô không thành công",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: color_white_text1,
+                    fontSize: 16.0),
+              ),
+            ),
             leading: IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.black),
+              icon: Icon(Icons.arrow_back, color: color_white_text1),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -36,27 +45,6 @@ class _DataFailed extends State<DataFailed> {
           ),
           body: ListView(
             children: <Widget>[
-              Container(
-                decoration: BoxDecoration(color: color_header),
-                padding: EdgeInsets.all(10.0),
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      "Dữ liệu chấm công thô không thành công",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: color_white_text1,
-                          fontSize: 12.0),
-                    ),
-                    IconButton(
-                        icon: Icon(
-                          Icons.refresh,
-                          color: color_white_icons,
-                        ),
-                        onPressed: null)
-                  ],
-                ),
-              ),
               Container(
                 padding: EdgeInsets.all(10.0),
                 child: FlatButton(

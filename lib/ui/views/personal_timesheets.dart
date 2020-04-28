@@ -26,9 +26,17 @@ class _PersonalTimeSheets extends State<PersonalTimeSheets> {
         home: Scaffold(
           backgroundColor: Colors.grey[100],
           appBar: AppBar(
-            backgroundColor: color_white_text1,
+            backgroundColor: color_header,
+            title: Center(
+              child: Text(
+                "Thông tin chấm công",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: color_white_text1),
+              ),
+            ),
             leading: IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.black),
+              icon: Icon(Icons.arrow_back, color: color_white_text1),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -36,26 +44,6 @@ class _PersonalTimeSheets extends State<PersonalTimeSheets> {
           ),
           body: ListView(
             children: <Widget>[
-              Container(
-                decoration: BoxDecoration(color: color_header),
-                padding: EdgeInsets.all(10.0),
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      "Thông tin chấm công",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: color_white_text1),
-                    ),
-                    IconButton(
-                        icon: Icon(
-                          Icons.refresh,
-                          color: color_white_icons,
-                        ),
-                        onPressed: null)
-                  ],
-                ),
-              ),
               Container(
                 padding: EdgeInsets.all(10.0),
                 child: FlatButton(
